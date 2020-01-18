@@ -17,6 +17,9 @@ public class NumberGuesser {
   }
 
   public String guess(String guessed) {
+    if (answer.equals(guessed)) {
+      return "4A0B";
+    }
     Map<String, Long> result = IntStream.range(0, 4)
         .mapToObj(idx -> {
           char answerValue = answer.charAt(idx);
