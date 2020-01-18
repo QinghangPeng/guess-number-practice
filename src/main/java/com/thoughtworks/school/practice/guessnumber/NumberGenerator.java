@@ -6,13 +6,16 @@ import java.util.Set;
 
 public class NumberGenerator {
 
+  private static final int BOUND = 10;
+  private static final int NUMBER_SIZE = 4;
+
   public String generate() {
     Random random = new Random();
     Set<String> digits = new HashSet<>();
     while (true) {
-      int nextDigit = random.nextInt(10);
+      int nextDigit = random.nextInt(BOUND);
       digits.add(String.valueOf(nextDigit));
-      if (digits.size() == 4) {
+      if (digits.size() == NUMBER_SIZE) {
         break;
       }
     }

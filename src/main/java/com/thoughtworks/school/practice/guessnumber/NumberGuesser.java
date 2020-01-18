@@ -10,6 +10,10 @@ import java.util.stream.IntStream;
 
 public class NumberGuesser {
 
+  private static final int NUMBER_SIZE = 4;
+  private static final String RIGHT_GUESS = "A";
+  private static final String RIGHT_NUMBER_WRONG_PLACE = "B";
+  private static final long DEFAULT_COUNT = 0L;
   private final String answer;
 
   public NumberGuesser(NumberGenerator generator) {
@@ -17,24 +21,25 @@ public class NumberGuesser {
   }
 
   public String guess(String guessed) {
-    if (guessed.chars().distinct().count() != 4) {
+    if (guessed.chars().distinct().count() != NUMBER_SIZE) {
       return "Wrong input, input again";
     }
     if (answer.equals(guessed)) {
       return "4A0B";
     }
-    Map<String, Long> result = IntStream.range(0, 4)
+    Map<String, Long> result = IntStream.range(0, NUMBER_SIZE)
         .mapToObj(idx -> {
           char answerValue = answer.charAt(idx);
           char guessedValue = guessed.charAt(idx);
           if (answerValue == guessedValue) {
-            return "A";
+            return RIGHT_GUESS;
           }
-          return answer.indexOf(guessedValue) == -1 ? null : "B";
+          return answer.indexOf(guessedValue) == -1 ? null : RIGHT_NUMBER_WRONG_PLACE;
         })
         .filter(Objects::nonNull)
         .collect(groupingBy(identity(), counting()));
 
-    return result.getOrDefault("A", 0L) + "A" + result.getOrDefault("B", 0L) + "B";
+    return result.getOrDefault(RIGHT_GUESS, DEFAULT_COUNT) + RIGHT_GUESS +
+        result.getOrDefault(RIGHT_NUMBER_WRONG_PLACE, DEFAULT_COUNT) + RIGHT_NUMBER_WRONG_PLACE;
   }
 }

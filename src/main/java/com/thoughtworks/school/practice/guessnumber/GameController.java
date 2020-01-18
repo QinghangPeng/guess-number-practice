@@ -7,6 +7,7 @@ import java.util.List;
 
 public class GameController {
 
+  private static final int LIMITED_GAME_ROUND = 6;
   private final NumberGuesser numberGuesser;
   private List<Result> previousResult = new ArrayList<>();
 
@@ -16,7 +17,7 @@ public class GameController {
 
   public GameResult guess(String guessedNumber) {
     List<Result> previous = Collections.unmodifiableList(new ArrayList<>(previousResult));
-    if (previousResult.size() >= 6) {
+    if (previousResult.size() >= LIMITED_GAME_ROUND) {
       return new GameResult(null, previous);
     }
     String currentResult = numberGuesser.guess(guessedNumber);
