@@ -42,4 +42,11 @@ class NumberGuesserTest {
 
     assertThat(result).isEqualTo("4A0B");
   }
+
+  @Test
+  void should_return_error_message_when_given_number_has_duplicate_digit() {
+    String result = numberGuesser.guess("1233");
+
+    assertThat(result).isEqualTo("Wrong input, input again");
+  }
 }
