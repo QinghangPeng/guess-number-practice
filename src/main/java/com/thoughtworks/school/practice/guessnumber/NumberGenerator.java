@@ -1,24 +1,29 @@
 package com.thoughtworks.school.practice.guessnumber;
 
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
+import java.util.function.IntPredicate;
+import java.util.function.IntUnaryOperator;
+import java.util.stream.Collectors;
 
 public class NumberGenerator {
 
-  private static final int BOUND = 10;
   private static final int NUMBER_SIZE = 4;
 
   public String generate() {
-    Random random = new Random();
-    Set<String> digits = new HashSet<>();
-    while (true) {
-      int nextDigit = random.nextInt(BOUND);
-      digits.add(String.valueOf(nextDigit));
-      if (digits.size() == NUMBER_SIZE) {
-        break;
-      }
-    }
-    return String.join("", digits);
+    return new Random().ints()
+        .map(mod10())
+        .filter(onlyPositive())
+        .distinct()
+        .limit(NUMBER_SIZE)
+        .mapToObj(String::valueOf)
+        .collect(Collectors.joining());
+  }
+
+  private IntPredicate onlyPositive() {
+    return i -> i >= 0;
+  }
+
+  private IntUnaryOperator mod10() {
+    return i -> i % 10;
   }
 }
