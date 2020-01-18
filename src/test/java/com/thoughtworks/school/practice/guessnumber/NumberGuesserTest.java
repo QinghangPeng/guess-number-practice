@@ -49,4 +49,11 @@ class NumberGuesserTest {
 
     assertThat(result).isEqualTo("Wrong input, input again");
   }
+
+  @Test
+  void should_return_error_message_when_given_number_does_not_have_4_digits() {
+    String result = numberGuesser.guess("12345");
+
+    assertThat(result).isEqualTo("Wrong input, input again");
+  }
 }

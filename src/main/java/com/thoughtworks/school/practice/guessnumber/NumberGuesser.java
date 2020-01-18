@@ -17,7 +17,7 @@ public class NumberGuesser {
   }
 
   public String guess(String guessed) {
-    if (guessed.chars().distinct().count() < 4) {
+    if (guessed.chars().distinct().count() != 4) {
       return "Wrong input, input again";
     }
     if (answer.equals(guessed)) {
