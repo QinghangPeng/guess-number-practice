@@ -28,4 +28,11 @@ class NumberGuesserTest {
 
     assertThat(result).isEqualTo("1A0B");
   }
+
+  @Test
+  void should_return_0A1B_when_the_answer_is_1234_and_given_5671() {
+    String result = numberGuesser.guess("5671");
+
+    assertThat(result).isEqualTo("0A1B");
+  }
 }
