@@ -46,4 +46,14 @@ class AnswerTest {
     assertThat(result.getCorrectCount()).isEqualTo(4);
     assertThat(result.getWrongPositionCount()).isEqualTo(0);
   }
+
+  @Test
+  void should_return_0_correct_4_position_when_answer_is_1234_and_given_4321() {
+    Answer answer = new Answer(asList('1', '2', '3', '4'));
+
+    CheckResult result = answer.check(asList('4', '3', '2', '1'));
+
+    assertThat(result.getCorrectCount()).isEqualTo(0);
+    assertThat(result.getWrongPositionCount()).isEqualTo(4);
+  }
 }

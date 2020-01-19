@@ -12,15 +12,15 @@ public class Answer {
   }
 
   public CheckResult check(List<Character> guessNumber) {
-    int wrongPosition = 0;
 
     int correctCount = (int) IntStream.range(0, 4)
         .filter(idx -> answer.get(idx).equals(guessNumber.get(idx)))
         .count();
 
-    if (correctCount == 0 && this.answer.contains(guessNumber.get(3))) {
-      wrongPosition = 1;
-    }
-    return new CheckResult(correctCount, wrongPosition);
+    int wrongPositionCount = (int) IntStream.range(0, 4)
+        .filter(idx -> answer.contains(guessNumber.get(idx)))
+        .filter(idx -> !answer.get(idx).equals(guessNumber.get(idx)))
+        .count();
+    return new CheckResult(correctCount, wrongPositionCount);
   }
 }
