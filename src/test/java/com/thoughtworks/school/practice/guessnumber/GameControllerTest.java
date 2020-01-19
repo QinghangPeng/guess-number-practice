@@ -54,4 +54,13 @@ class GameControllerTest {
 
     assertThat(result.getMessage()).isEqualTo("Congratulations, you win !");
   }
+
+  @Test
+  void should_return_error_message_when_input_is_invalid() {
+    given(answer.check(any())).willThrow(new RuntimeException());
+
+    GuessResult result = gameController.guess("12");
+
+    assertThat(result.getCurrent()).isEqualTo("Wrong input, input again");
+  }
 }

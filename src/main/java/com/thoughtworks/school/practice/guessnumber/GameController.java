@@ -18,11 +18,19 @@ public class GameController {
   }
 
   public GuessResult guess(String guessNumber) {
-    String currentResult = resultFormatter.format(answer.check(toCharList(guessNumber)));
+    String currentResult = checkAndFormat(guessNumber);
     List<OneGuessResult> previousResultCopy = Collections.unmodifiableList(new ArrayList<>(previousResult));
     previousResult.add(new OneGuessResult(guessNumber, currentResult));
     String message = currentResult.equals("4A0B") ? "Congratulations, you win !" : null;
     return new GuessResult(currentResult, previousResultCopy, message);
+  }
+
+  private String checkAndFormat(String guessNumber) {
+    try {
+      return resultFormatter.format(answer.check(toCharList(guessNumber)));
+    } catch (RuntimeException e) {
+      return "Wrong input, input again";
+    }
   }
 
   private List<Character> toCharList(String number) {
