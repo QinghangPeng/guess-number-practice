@@ -15,4 +15,14 @@ class ResultFormatterTest {
 
     assertThat(formattedResult).isEqualTo("0A0B");
   }
+
+  @Test
+  void should_format_1_correct_1_wrong_position_as_1A1B() {
+    ResultFormatter formatter = new ResultFormatter();
+    CheckResult result = new CheckResult(1, 1);
+
+    String formattedResult = formatter.format(result);
+
+    assertThat(formattedResult).isEqualTo("1A1B");
+  }
 }
