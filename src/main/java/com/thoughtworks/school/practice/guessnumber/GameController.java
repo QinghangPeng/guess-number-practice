@@ -8,6 +8,7 @@ import java.util.List;
 
 public class GameController {
 
+  private static final int MAX_GAME_ROUND = 6;
   private Answer answer;
   private ResultFormatter resultFormatter;
   private List<OneGuessResult> previousResult = new ArrayList<>();
@@ -19,7 +20,7 @@ public class GameController {
   }
 
   public GuessResult guess(String guessNumber) {
-    if (alreadyWin) {
+    if (alreadyWin || previousResult.size() >= MAX_GAME_ROUND) {
       throw new RuntimeException();
     }
     String currentResult = checkAndFormat(guessNumber);

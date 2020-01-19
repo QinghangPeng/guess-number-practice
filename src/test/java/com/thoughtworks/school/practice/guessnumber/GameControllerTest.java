@@ -94,4 +94,15 @@ class GameControllerTest {
 
     assertThat(result.getMessage()).isEqualTo("Congratulations, you win !");
   }
+
+  @Test
+  void should_throw_exception_when_guess_number_more_than_6_times() {
+    CheckResult checkResult = new CheckResult(0, 0);
+    given(answer.check(any())).willReturn(checkResult);
+    given(formatter.format(checkResult)).willReturn("0A0B");
+    IntStream.range(0, 6).forEach(i -> gameController.guess("5678"));
+
+    assertThatExceptionOfType(RuntimeException.class)
+        .isThrownBy(() -> gameController.guess("5678"));
+  }
 }
