@@ -1,10 +1,14 @@
 package com.thoughtworks.school.practice.guessnumber;
 
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doReturn;
 
+import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -74,5 +78,20 @@ class GameControllerTest {
 
     assertThatExceptionOfType(RuntimeException.class)
         .isThrownBy(() -> gameController.guess("1234"));
+  }
+
+  @Test
+  void should_win_the_game_when_guess_right_at_6th_time() {
+    CheckResult notRightResult = new CheckResult(1, 0);
+    CheckResult rightResult = new CheckResult(4, 0);
+    doReturn(notRightResult).when(answer).check(eq(asList('1', '5', '6', '7')));
+    doReturn(rightResult).when(answer).check(eq(asList('1', '2', '3', '4')));
+    doReturn("1A0B").when(formatter).format(notRightResult);
+    doReturn("4A0B").when(formatter).format(rightResult);
+    IntStream.range(0, 5).forEach(i -> gameController.guess("1235"));
+
+    GuessResult result = gameController.guess("1234");
+
+    assertThat(result.getMessage()).isEqualTo("Congratulations, you win !");
   }
 }
