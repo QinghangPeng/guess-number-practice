@@ -2,6 +2,7 @@ package com.thoughtworks.school.practice.guessnumber;
 
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.partitioningBy;
+import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 import java.util.Map;
@@ -14,8 +15,8 @@ public class Answer {
   private static final int ANSWER_SIZE = 4;
   private List<Character> answer;
 
-  public Answer(List<Character> answer) {
-    this.answer = answer;
+  public Answer(NumberGenerator numberGenerator) {
+    this.answer = numberGenerator.generate().chars().mapToObj(i -> (char) i).collect(toList());
   }
 
   public CheckResult check(List<Character> guessNumber) {
