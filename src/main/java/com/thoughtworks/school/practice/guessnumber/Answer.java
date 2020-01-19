@@ -12,9 +12,12 @@ public class Answer {
 
   public CheckResult check(List<Character> guessNumber) {
     int correctCount = 0;
+    int wrongPosition = 0;
     if (this.answer.get(0).equals(guessNumber.get(0))) {
       correctCount = 1;
+    } else if (this.answer.contains(guessNumber.get(3))) {
+      wrongPosition = 1;
     }
-    return new CheckResult(correctCount, 0);
+    return new CheckResult(correctCount, wrongPosition);
   }
 }
