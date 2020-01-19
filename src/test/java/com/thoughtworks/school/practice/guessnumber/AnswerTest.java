@@ -65,4 +65,12 @@ class AnswerTest {
     assertThatExceptionOfType(RuntimeException.class)
         .isThrownBy(() -> answer.check(asList('1', '2', '3', '3')));
   }
+
+  @Test
+  void should_throw_exception_given_12345() {
+    Answer answer = new Answer(asList('1', '2', '3', '4'));
+
+    assertThatExceptionOfType(RuntimeException.class)
+        .isThrownBy(() -> answer.check(asList('1', '2', '3', '4', '5')));
+  }
 }

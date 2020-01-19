@@ -12,7 +12,7 @@ public class Answer {
   }
 
   public CheckResult check(List<Character> guessNumber) {
-    if (guessNumber.stream().distinct().count() < 4) {
+    if (guessNumber.stream().distinct().count() != 4) {
       throw new RuntimeException();
     }
 
