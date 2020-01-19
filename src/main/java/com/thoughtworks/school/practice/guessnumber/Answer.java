@@ -1,6 +1,7 @@
 package com.thoughtworks.school.practice.guessnumber;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Answer {
 
@@ -11,11 +12,13 @@ public class Answer {
   }
 
   public CheckResult check(List<Character> guessNumber) {
-    int correctCount = 0;
     int wrongPosition = 0;
-    if (this.answer.get(0).equals(guessNumber.get(0))) {
-      correctCount = 1;
-    } else if (this.answer.contains(guessNumber.get(3))) {
+
+    int correctCount = (int) IntStream.range(0, 4)
+        .filter(idx -> answer.get(idx).equals(guessNumber.get(idx)))
+        .count();
+
+    if (correctCount == 0 && this.answer.contains(guessNumber.get(3))) {
       wrongPosition = 1;
     }
     return new CheckResult(correctCount, wrongPosition);

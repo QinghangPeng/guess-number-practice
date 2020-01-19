@@ -25,7 +25,6 @@ class AnswerTest {
 
     assertThat(result.getCorrectCount()).isEqualTo(1);
     assertThat(result.getWrongPositionCount()).isEqualTo(0);
-
   }
 
   @Test
@@ -36,6 +35,15 @@ class AnswerTest {
 
     assertThat(result.getCorrectCount()).isEqualTo(0);
     assertThat(result.getWrongPositionCount()).isEqualTo(1);
+  }
 
+  @Test
+  void should_return_4_correct_0_position_when_answer_is_1234_and_given_1234() {
+    Answer answer = new Answer(asList('1', '2', '3', '4'));
+
+    CheckResult result = answer.check(asList('1', '2', '3', '4'));
+
+    assertThat(result.getCorrectCount()).isEqualTo(4);
+    assertThat(result.getWrongPositionCount()).isEqualTo(0);
   }
 }
