@@ -1,33 +1,23 @@
 package com.thoughtworks.school.practice.guessnumber;
 
-import java.util.Objects;
+import java.util.List;
 
 public class GuessResult {
 
   private String current;
+  private List<OneGuessResult> previous;
 
-  public GuessResult(String current) {
+  public GuessResult(String current, List<OneGuessResult> previous) {
     this.current = current;
+    this.previous = previous;
   }
 
   public String getCurrent() {
     return current;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    GuessResult that = (GuessResult) o;
-    return Objects.equals(current, that.current);
+  public List<OneGuessResult> getPrevious() {
+    return previous;
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(current);
-  }
 }

@@ -30,4 +30,17 @@ class GameControllerTest {
 
     assertThat(result.getCurrent()).isEqualTo("0A0B");
   }
+
+  @Test
+  void should_return_previous_input_and_output() {
+    CheckResult checkResult = new CheckResult(0, 0);
+    given(answer.check(any())).willReturn(checkResult);
+    given(formatter.format(checkResult)).willReturn("0A0B");
+    gameController.guess("5678");
+
+    GuessResult result = gameController.guess("5678");
+
+    assertThat(result.getPrevious().stream().map(OneGuessResult::getInput)).contains("5678");
+    assertThat(result.getPrevious().stream().map(OneGuessResult::getOutput)).contains("0A0B");
+  }
 }
