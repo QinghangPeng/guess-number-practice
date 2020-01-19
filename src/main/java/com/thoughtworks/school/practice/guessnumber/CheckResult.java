@@ -2,19 +2,19 @@ package com.thoughtworks.school.practice.guessnumber;
 
 public class CheckResult {
 
-  private int correctCount;
-  private int wrongPositionCount;
+  private long correctCount;
+  private long wrongPositionCount;
 
-  public CheckResult(int correctCount, int wrongPositionCount) {
+  public CheckResult(long correctCount, long wrongPositionCount) {
     this.correctCount = correctCount;
     this.wrongPositionCount = wrongPositionCount;
   }
 
-  public int getCorrectCount() {
+  public long getCorrectCount() {
     return correctCount;
   }
 
-  public int getWrongPositionCount() {
+  public long getWrongPositionCount() {
     return wrongPositionCount;
   }
 }

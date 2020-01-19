@@ -1,6 +1,12 @@
 package com.thoughtworks.school.practice.guessnumber;
 
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.partitioningBy;
+
 import java.util.List;
+import java.util.Map;
+import java.util.function.IntPredicate;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
 public class Answer {
@@ -17,14 +23,19 @@ public class Answer {
       throw new RuntimeException();
     }
 
-    int correctCount = (int) IntStream.range(0, ANSWER_SIZE)
-        .filter(idx -> answer.get(idx).equals(guessNumber.get(idx)))
-        .count();
+    Map<Boolean, Long> correctAndWrongPositionCounts = IntStream.range(0, ANSWER_SIZE)
+        .filter(digitIsInTheAnswer(guessNumber))
+        .boxed()
+        .collect(partitioningBy(digitIsCorrect(guessNumber), counting()));
 
-    int wrongPositionCount = (int) IntStream.range(0, ANSWER_SIZE)
-        .filter(idx -> answer.contains(guessNumber.get(idx)))
-        .filter(idx -> !answer.get(idx).equals(guessNumber.get(idx)))
-        .count();
-    return new CheckResult(correctCount, wrongPositionCount);
+    return new CheckResult(correctAndWrongPositionCounts.get(Boolean.TRUE), correctAndWrongPositionCounts.get(Boolean.FALSE));
+  }
+
+  private Predicate<Integer> digitIsCorrect(List<Character> guessNumber) {
+    return idx -> answer.get(idx).equals(guessNumber.get(idx));
+  }
+
+  private IntPredicate digitIsInTheAnswer(List<Character> guessNumber) {
+    return idx -> answer.contains(guessNumber.get(idx));
   }
 }
