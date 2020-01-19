@@ -1,6 +1,6 @@
 = Guess Number
 
-image::https://github.com/kbyyd24/guess-number-practice/workflows/day-1/badge.svg[link="https://github.com/kbyyd24/guess-number-practice/actions"]
+image::https://github.com/kbyyd24/guess-number-practice/workflows/day-2/badge.svg[link="https://github.com/kbyyd24/guess-number-practice/actions"]
 
 == 练习描述
 
