@@ -1,6 +1,7 @@
 package com.thoughtworks.school.practice.guessnumber;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
@@ -62,5 +63,16 @@ class GameControllerTest {
     GuessResult result = gameController.guess("12");
 
     assertThat(result.getCurrent()).isEqualTo("Wrong input, input again");
+  }
+
+  @Test
+  void should_throw_exception_when_already_win_the_game() {
+    CheckResult checkResult = new CheckResult(4, 0);
+    given(answer.check(any())).willReturn(checkResult);
+    given(formatter.format(checkResult)).willReturn("4A0B");
+    gameController.guess("1234");
+
+    assertThatExceptionOfType(RuntimeException.class)
+        .isThrownBy(() -> gameController.guess("1234"));
   }
 }

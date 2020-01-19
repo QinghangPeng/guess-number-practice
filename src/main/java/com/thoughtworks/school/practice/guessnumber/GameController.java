@@ -11,6 +11,7 @@ public class GameController {
   private Answer answer;
   private ResultFormatter resultFormatter;
   private List<OneGuessResult> previousResult = new ArrayList<>();
+  private boolean alreadyWin = false;
 
   public GameController(Answer answer, ResultFormatter resultFormatter) {
     this.answer = answer;
@@ -18,10 +19,17 @@ public class GameController {
   }
 
   public GuessResult guess(String guessNumber) {
+    if (alreadyWin) {
+      throw new RuntimeException();
+    }
     String currentResult = checkAndFormat(guessNumber);
     List<OneGuessResult> previousResultCopy = Collections.unmodifiableList(new ArrayList<>(previousResult));
     previousResult.add(new OneGuessResult(guessNumber, currentResult));
-    String message = currentResult.equals("4A0B") ? "Congratulations, you win !" : null;
+    String message = null;
+    if (currentResult.equals("4A0B")) {
+      message = "Congratulations, you win !";
+      alreadyWin = true;
+    }
     return new GuessResult(currentResult, previousResultCopy, message);
   }
 
