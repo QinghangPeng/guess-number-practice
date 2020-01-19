@@ -43,4 +43,15 @@ class GameControllerTest {
     assertThat(result.getPrevious().stream().map(OneGuessResult::getInput)).contains("5678");
     assertThat(result.getPrevious().stream().map(OneGuessResult::getOutput)).contains("0A0B");
   }
+
+  @Test
+  void should_return_congratulations_when_win_the_game() {
+    CheckResult checkResult = new CheckResult(4, 0);
+    given(answer.check(any())).willReturn(checkResult);
+    given(formatter.format(checkResult)).willReturn("4A0B");
+
+    GuessResult result = gameController.guess("1234");
+
+    assertThat(result.getMessage()).isEqualTo("Congratulations, you win !");
+  }
 }

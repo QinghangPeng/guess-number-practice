@@ -6,10 +6,12 @@ public class GuessResult {
 
   private String current;
   private List<OneGuessResult> previous;
+  private String message;
 
-  public GuessResult(String current, List<OneGuessResult> previous) {
+  public GuessResult(String current, List<OneGuessResult> previous, String message) {
     this.current = current;
     this.previous = previous;
+    this.message = message;
   }
 
   public String getCurrent() {
@@ -20,4 +22,7 @@ public class GuessResult {
     return previous;
   }
 
+  public String getMessage() {
+    return message;
+  }
 }

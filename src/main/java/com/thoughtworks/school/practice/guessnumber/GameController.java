@@ -21,7 +21,8 @@ public class GameController {
     String currentResult = resultFormatter.format(answer.check(toCharList(guessNumber)));
     List<OneGuessResult> previousResultCopy = Collections.unmodifiableList(new ArrayList<>(previousResult));
     previousResult.add(new OneGuessResult(guessNumber, currentResult));
-    return new GuessResult(currentResult, previousResultCopy);
+    String message = currentResult.equals("4A0B") ? "Congratulations, you win !" : null;
+    return new GuessResult(currentResult, previousResultCopy, message);
   }
 
   private List<Character> toCharList(String number) {
