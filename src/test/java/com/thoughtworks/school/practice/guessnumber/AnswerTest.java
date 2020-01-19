@@ -2,6 +2,7 @@ package com.thoughtworks.school.practice.guessnumber;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import org.junit.jupiter.api.Test;
 
@@ -55,5 +56,13 @@ class AnswerTest {
 
     assertThat(result.getCorrectCount()).isEqualTo(0);
     assertThat(result.getWrongPositionCount()).isEqualTo(4);
+  }
+
+  @Test
+  void should_throw_exception_given_1233() {
+    Answer answer = new Answer(asList('1', '2', '3', '4'));
+
+    assertThatExceptionOfType(RuntimeException.class)
+        .isThrownBy(() -> answer.check(asList('1', '2', '3', '3')));
   }
 }

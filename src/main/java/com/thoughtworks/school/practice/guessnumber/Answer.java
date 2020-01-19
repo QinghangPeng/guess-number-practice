@@ -12,6 +12,9 @@ public class Answer {
   }
 
   public CheckResult check(List<Character> guessNumber) {
+    if (guessNumber.stream().distinct().count() < 4) {
+      throw new RuntimeException();
+    }
 
     int correctCount = (int) IntStream.range(0, 4)
         .filter(idx -> answer.get(idx).equals(guessNumber.get(idx)))
