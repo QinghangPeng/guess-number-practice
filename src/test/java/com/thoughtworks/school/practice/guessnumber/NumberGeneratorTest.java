@@ -16,5 +16,11 @@ class NumberGeneratorTest {
     assertThat(number.chars().distinct()).hasSize(4);
   }
 
+  @Test
+  void should_generate_different_number_when_each_time_to_generate() {
+    String first = generator.generate();
+    String second = generator.generate();
 
+    assertThat(first).isNotEqualTo(second);
+  }
 }
